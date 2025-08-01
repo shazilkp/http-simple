@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP Server Test Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 2em;
+        }
+        header, footer {
+            background-color: #fa7979;
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            margin-right: 1em;
+            text-decoration: none;
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 0.5em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Test Page</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Sample Text</h2>
+        <p>This is a <strong>simple</strong> paragraph to test text rendering.</p>
+        <p>Here's a <a href="https://example.com">link</a> and some <em>emphasized</em> text.</p>
+    </section>
+
+    <section>
+        <h2>List Example</h2>
+        <ul>
+            <li>First item</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Table Example</h2>
+        <table>
+            <thead>
+                <tr><th>Name</th><th>Age</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Alice</td><td>25</td></tr>
+                <tr><td>Bob</td><td>30</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Form Example</h2>
+        <form action="/submit" method="post">
+            <label>Name: <input type="text" name="name"></label><br>
+            <label>Email: <input type="email" name="email"></label><br>
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+
+    <section>
+        <h2>Code Block</h2>
+        <pre><code>#include &lt;stdio.h&gt;
+
+        int main() {
+            printf("Hello, world!\n");
+            return 0;
+        }</code></pre>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Your Name</p>
+</footer>
+
+</body>
+</html>

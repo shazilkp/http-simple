@@ -32,16 +32,6 @@ void sigchld_handler(int s){
     errno = saved_err;
 }
 
-// //function which casts a struct sockaddr.sin addr to sockaddr_in 
-// void *get_in_addr(struct sockaddr *sa){
-//     if(sa->sa_family == AF_INET){
-//         return &(((struct sockaddr_in*)sa)->sin_addr);
-//     }
-//     else{
-//         return &(((struct sockaddr_in6*)sa)->sin6_addr);
-//     }
-
-// }
 int main(){
 
     int sockfd = setup_server_socket(PORT,BACKLOG);
