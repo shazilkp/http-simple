@@ -55,3 +55,8 @@ dkms.conf
 *.dwo
 
 .vscode/
+
+# Compiled output
+/build/
+/bin/
+/obj/

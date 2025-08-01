@@ -12,7 +12,7 @@
 #include <signal.h>
 
 
-#define PORT "3490"     //string???
+#define PORT "3480"     //string???
 #define MAXDATASIZE 100 //max no of bytes we can recieve at once
 
 

@@ -12,7 +12,7 @@
 #include <signal.h>
 
 
-#define PORT "3490"     //string???
+#define PORT "3480"     //string???
 
 #define BACKLOG 10      //server queue size
 
@@ -123,13 +123,42 @@ int main(){
         }
 
         inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *) &their_addr),s,sizeof(s));
-        printf("server: got connection from %s\n", s);
+        printf("server : got connection from %s\n", s);
 
         if(fork() == 0){            //child process
             close(sockfd);      //child dont need lstner
-            if(send(new_fd,"Hello to the world of networks",31,0) == -1){
+
+            
+
+            char req_buf[1024];
+            char method[8], path[256], version[16];
+
+            int numbytes = recv(new_fd, req_buf, sizeof(req_buf) - 1, 0);
+
+            if (numbytes > 0) {
+                req_buf[numbytes] = '\0';
+                printf("Received request:\n%s\n", req_buf);
+                sscanf(req_buf,"%s %s %s",method,path,version);         //parsing the first line of http request
+                printf("Method: %s\n", method);    // "GET"
+                printf("Path: %s\n", path);        // "/index.html"
+                printf("Version: %s\n", version);  // "HTTP/1.1"
+            }
+
+
+            const char *body = "<body><h1>Networking</h1></body>";
+            char response[512];
+
+            snprintf(response, sizeof(response),
+                "HTTP/1.1 200 OK\r\n"
+                "Content-Type: text/html\r\n"
+                "Content-Length: %ld\r\n"
+                "\r\n"
+                "%s", strlen(body), body);
+           
+             if(send(new_fd, response, strlen(response), 0) == -1){
                 perror("send");
             }
+            // printf("Child (%d) : data sent\n",getpid());
             close(new_fd);
             exit(0);
         }
