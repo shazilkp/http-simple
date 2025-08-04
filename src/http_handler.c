@@ -12,6 +12,7 @@ const char * get_mime_type(const char * path){
     if (strstr(path, ".js")) return "application/javascript";
     if (strstr(path, ".txt")) return "text/plain";
     if (strstr(path, ".png")) return "image/png";
+    if (strstr(path, ".mp4")) return "video/mp4";
     return "application/octet-stream";
 }
 
