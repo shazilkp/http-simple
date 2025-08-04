@@ -63,26 +63,6 @@ void serve_file(int new_fd, const char * filepath){
     long file_size = ftell(file_fd);
     rewind(file_fd);
 
-    ssize_t bytes_read;
-    
-    
-    char *buffer = malloc(file_size);
-    if (!buffer) {
-        fclose(file_fd);
-        perror("malloc");
-        return;
-    }
-
-    bytes_read = fread(buffer,1,file_size,file_fd);
-    fclose(file_fd);
-
-    // if((bytes_read = read(file_fd,buffer,sizeof(buffer))) == -1){
-    //     perror("file read");
-    //     close(file_fd);
-    //     return;
-    // }
-
-    // close(file_fd);
     const char * mime = get_mime_type(filepath);
     char header[256];
     snprintf(header, sizeof(header),
@@ -90,16 +70,27 @@ void serve_file(int new_fd, const char * filepath){
         "Content-Type: %s\r\n"
         "Content-Length: %ld\r\n"
         "\r\n"
-        , mime, bytes_read);
+        , mime, file_size);
 
     if(send(new_fd, header, strlen(header), 0) == -1){
         perror("send header");
-    }
-    if(send(new_fd, buffer, bytes_read, 0) == -1){
-        perror("send content");
+        fclose(file_fd);
+        return;
     }
 
-    free(buffer);
+
+    char buf[8192];
+    size_t n;
+    while ((n = fread(buf, 1, sizeof(buf), file_fd)) > 0) {
+        if (send(new_fd, buf, n, 0) == -1) {
+            perror("send body");
+            break;
+     
+        }
+    }
+
+    // bytes_read = fread(buffer,1,file_size,file_fd);
+    fclose(file_fd);
 }
 
 
