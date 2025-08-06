@@ -41,15 +41,11 @@ static void lookup()
 
     printf(
     "<html><head><title>Index of Files</title></head><body><h1>Index of Files</h1><table>");
-
-   
-
-    
-    
     do {
         errno = 0;
         if ((dp = readdir(dirp)) != NULL) {
             if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) continue;
+            
             printf("<tr><td><a href=\"%s\">%s</a></td></tr>",
                 dp->d_name, dp->d_name);
                 
@@ -58,9 +54,9 @@ static void lookup()
         
     printf("</table></body></html>");
 
-    if (errno != 0)
+    if (errno != 0){
         perror("error reading directory");
-    else
+    }
         
     (void) closedir(dirp);
     return;
